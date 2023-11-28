@@ -1,0 +1,6 @@
+@BudgetBadgerApi.Api_HostAddress = http://localhost:5178
+
+GET {{BudgetBadgerApi.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
