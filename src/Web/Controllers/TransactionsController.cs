@@ -2,23 +2,24 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web;
-
-[Route("api/[controller]")]
-public class TransactionsController : ControllerBase
+namespace Web.Controllers
 {
-    private readonly IMediator _mediator;
-    public TransactionsController(IMediator mediator)
+    [Route("api/[controller]")]
+    public class TransactionsController : ControllerBase
     {
-        _mediator = mediator;
-    }
+        private readonly IMediator _mediator;
 
-    [HttpGet]
-    public async Task<IActionResult> GetTransactions()
-    {
-        var query = new GetTransactionsQuery();
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
+        public TransactionsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetTransactions()
+        {
+            var query = new GetTransactionsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+    }
 }

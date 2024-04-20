@@ -1,10 +1,15 @@
-using System.Net;
 using MediatR;
-namespace Application.Queries;
-public class GetTransactionsQueryHandler() : IRequestHandler<GetTransactionsQuery, string>
+
+namespace Application.Queries
 {
-    public Task<string> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
+    public class GetTransactionsQueryHandler() : IRequestHandler<GetTransactionsQuery, string>
     {
-        return Task.FromResult("foo");
+        public Task<string> Handle(
+            GetTransactionsQuery request,
+            CancellationToken cancellationToken
+        )
+        {
+            return Task.FromResult("foo");
+        }
     }
 }
