@@ -1,9 +1,8 @@
-﻿namespace Domain.Enums
+﻿namespace Domain.Enums;
+
+public enum TransactionType
 {
-    public enum TransactionType
-    {
-        NonBillable = 0,
-        Expense = 1,
-        Revenue = 2
-    }
+    NonBillable = 0,
+    Expense = 1,
+    Revenue = 2
 }
