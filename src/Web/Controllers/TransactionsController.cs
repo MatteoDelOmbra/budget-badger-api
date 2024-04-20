@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class TransactionsController : ControllerBase
     {
         private readonly IMediator _mediator;
