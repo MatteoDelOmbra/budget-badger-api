@@ -6,6 +6,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
+builder.Services.AddDbContext<BadgerContext>();
 
 var app = builder.Build();
 app.UseSwagger().UseSwaggerUI();

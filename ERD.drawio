@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-        <mxGraphModel dx="1244" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+        <mxGraphModel dx="1419" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -609,7 +609,7 @@
                         <mxRectangle width="70" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="Z7aUJKxSwOPx3vXHLACp-147" value="" style="edgeStyle=elbowEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;rounded=0;" parent="1" source="Z7aUJKxSwOPx3vXHLACp-75" target="Z7aUJKxSwOPx3vXHLACp-138" edge="1">
+                <mxCell id="Z7aUJKxSwOPx3vXHLACp-147" value="" style="edgeStyle=elbowEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;rounded=0;" parent="1" source="Z7aUJKxSwOPx3vXHLACp-75" target="Z7aUJKxSwOPx3vXHLACp-109" edge="1">
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
                         <mxPoint x="121" y="644" as="sourcePoint"/>
                         <mxPoint x="221" y="544" as="targetPoint"/>
@@ -714,7 +714,7 @@
                         <mxRectangle width="30" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="spdXcX4dTDaVJKpS_4Wk-20" value="cashflow_id" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=1;" parent="spdXcX4dTDaVJKpS_4Wk-18" vertex="1">
+                <mxCell id="spdXcX4dTDaVJKpS_4Wk-20" value="category_id" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=1;" parent="spdXcX4dTDaVJKpS_4Wk-18" vertex="1">
                     <mxGeometry x="30" width="100" height="30" as="geometry">
                         <mxRectangle width="100" height="30" as="alternateBounds"/>
                     </mxGeometry>
@@ -971,7 +971,7 @@
                 <mxCell id="xliwvMum9Mr_t7l0ugVN-1" value="&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;cashflow - &lt;/b&gt;if I want to create a debt that is not related to changing account balance then I can create cashflow without transaction. Bob can create a cashflow with 100% share for Anna - it means that Anna owns it to Bob&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1. cashflow name is now misleading&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;2. we know that Anna own to Bob, but to what account? We need to specify it as well and store this info in share related to that cashflow&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.document;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="993" y="1199" width="358" height="197" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="&lt;div&gt;&lt;b&gt;Better approach&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;cashflow - is always part of some transaction!&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;if I want to create a debt that is not related to changing account&lt;/font&gt;&lt;/div&gt;balance&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;(add some old debt or smth to budget)&amp;nbsp; then I can create transaction with type NonBillable. Bob can create a transaction with cashflow 100% share for Anna and type to NonBillable - it means that Anna owns it to Bob&lt;br&gt;&lt;/span&gt;" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.document;fontSize=14;" vertex="1" parent="1">
+                <mxCell id="12" value="&lt;div&gt;&lt;b&gt;Better approach&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;cashflow - is always part of some transaction!&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;if I want to create a debt that is not related to changing account&lt;/font&gt;&lt;/div&gt;balance&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;(add some old debt or smth to budget)&amp;nbsp; then I can create transaction with type NonBillable. Bob can create a transaction with cashflow 100% share for Anna and type to NonBillable - it means that Anna owns it to Bob&lt;br&gt;&lt;/span&gt;" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.document;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="1096" y="1260" width="424" height="197" as="geometry"/>
                 </mxCell>
             </root>
