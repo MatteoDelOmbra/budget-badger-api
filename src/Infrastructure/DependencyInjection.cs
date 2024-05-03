@@ -12,7 +12,7 @@ public static class DependencyInjection
     )
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<BudgetBadgerContext>(opt => opt.UseNpgsql(connectionString));
+        services.AddDbContext<BudgetBadgerContext>(options => options.UseNpgsql(connectionString));
 
         return services;
     }

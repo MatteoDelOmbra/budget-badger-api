@@ -3,13 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-public class BudgetBadgerContext : DbContext
+public class BudgetBadgerContext(DbContextOptions<BudgetBadgerContext> options) : DbContext(options)
 {
-    public BudgetBadgerContext() { }
-
-    public BudgetBadgerContext(DbContextOptions<BudgetBadgerContext> options)
-        : base(options) { }
-
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Budget> Budgets { get; set; }
     public DbSet<Cashflow> Cashflows { get; set; }
@@ -18,13 +13,6 @@ public class BudgetBadgerContext : DbContext
     public DbSet<Share> Shares { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql(
-            @"host=localhost:5432;username=postgres;password=P@ssw0rd;database=budget_badger"
-        );
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
