@@ -14,16 +14,6 @@ public class GetTransactionsQueryHandler()
     )
     {
         var transactions = new List<Transaction>();
-        var transaction = new Transaction
-        {
-            Id = "foo",
-            Name = "bar",
-            Date = DateTime.UtcNow,
-            Type = Domain.Enums.TransactionType.Expense,
-            Value = 10,
-            AccountId = "xd"
-        };
-        transactions.Add(transaction);
         return Task.FromResult(transactions);
     }
 }
