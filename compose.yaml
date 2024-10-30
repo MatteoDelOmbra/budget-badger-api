@@ -1,13 +1,26 @@
-version: "3.8"
 services:
   database:
     image: 'postgres:latest'
     ports:
-      - 5432:5432
+      - 5000:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: P@ssw0rd
     volumes:
-      - pgdata:/var/lib/postgresql/data/
+      - postgres-data:/var/lib/postgresql/data/
+    networks:
+      - bb-network
+  beaver:
+    image: 'dbeaver/cloudbeaver:latest'
+    ports:
+      - 2137:8978
+    volumes:
+      - cloud-beaver:/opt/cloudbeaver/workspace/
+    networks:
+      - bb-network
 volumes:
-  pgdata:
+  postgres-data:
+  cloud-beaver:
+networks:
+  bb-network:
+    driver: bridge
