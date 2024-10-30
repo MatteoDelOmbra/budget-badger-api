@@ -1,3 +1,4 @@
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,9 @@ public static class DependencyInjection
     )
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<BudgetBadgerContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+        services.AddScoped<IAppDbContext, AppDbContext>();
 
         return services;
     }

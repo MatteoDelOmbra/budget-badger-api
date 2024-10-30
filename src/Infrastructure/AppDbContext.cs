@@ -1,9 +1,12 @@
+using Application.Interfaces;
 using Domain.Enitities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-public class BudgetBadgerContext(DbContextOptions<BudgetBadgerContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options)
+    : DbContext(options),
+        IAppDbContext
 {
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Budget> Budgets { get; set; }

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(BudgetBadgerContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20241030201500_RequireBudgetForAccountAndDefCashflowsArr")]
     partial class RequireBudgetForAccountAndDefCashflowsArr
     {

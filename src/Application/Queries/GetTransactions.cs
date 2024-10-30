@@ -1,3 +1,4 @@
+using Application.Interfaces;
 using Domain.Enitities;
 using MediatR;
 
@@ -5,7 +6,7 @@ namespace Application.Queries;
 
 public record GetTransactionsQuery() : IRequest<List<Transaction>>;
 
-public class GetTransactionsQueryHandler()
+public class GetTransactionsQueryHandler(IAppDbContext context)
     : IRequestHandler<GetTransactionsQuery, List<Transaction>>
 {
     public Task<List<Transaction>> Handle(
@@ -13,7 +14,7 @@ public class GetTransactionsQueryHandler()
         CancellationToken cancellationToken
     )
     {
-        var transactions = new List<Transaction>();
+        var transactions = context.Transactions.ToList();
         return Task.FromResult(transactions);
     }
 }
