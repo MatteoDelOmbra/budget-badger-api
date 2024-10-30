@@ -11,6 +11,6 @@ public class Account
 
     //relationships
     public virtual required ICollection<User> Owners { get; set; }
-    public virtual Budget? Budget { get; set; }
+    public virtual required Budget Budget { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; } = [];
 }

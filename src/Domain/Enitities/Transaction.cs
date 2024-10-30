@@ -13,5 +13,5 @@ public class Transaction
     //relationships
     public virtual required Budget Budget { get; set; }
     public virtual required Account Account { get; set; }
-    public virtual required ICollection<Cashflow> Cashflows { get; set; }
+    public virtual ICollection<Cashflow> Cashflows { get; set; } = [];
 }
