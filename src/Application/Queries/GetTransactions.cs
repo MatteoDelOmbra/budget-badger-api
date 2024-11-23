@@ -14,7 +14,7 @@ public class GetTransactionsQueryHandler(IAppDbContext context)
         CancellationToken cancellationToken
     )
     {
-        var transactions = context.Transactions.ToList();
+        List<Transaction> transactions = [.. context.Transactions];
         return Task.FromResult(transactions);
     }
 }

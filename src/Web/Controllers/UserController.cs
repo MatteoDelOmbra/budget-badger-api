@@ -1,5 +1,7 @@
 using Application.Commands;
 using Application.Queries;
+using Domain.DTOs;
+using Domain.Enitities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +15,16 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Signup([FromBody] SignupBody body)
     {
-        var command = new SignupCommand(body);
-        var result = await _mediator.Send(command);
+        SignupCommand command = new(body);
+        Guid result = await _mediator.Send(command);
         return Ok(result);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var q = new GetUsersQuery();
-        var res = await _mediator.Send(q);
-        return Ok(res);
+        GetUsersQuery query = new();
+        List<User> result = await _mediator.Send(query);
+        return Ok(result);
     }
 }

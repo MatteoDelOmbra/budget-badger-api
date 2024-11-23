@@ -12,10 +12,10 @@ public static class DependencyInjection
         IConfiguration configuration
     )
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+        string? connectionString = configuration.GetConnectionString("DefaultConnection");
+        _ = services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
-        services.AddScoped<IAppDbContext, AppDbContext>();
+        _ = services.AddScoped<IAppDbContext, AppDbContext>();
 
         return services;
     }

@@ -1,3 +1,5 @@
+namespace Domain.DTOs;
+
 public class SignupBody
 {
     public required string Name { get; set; }

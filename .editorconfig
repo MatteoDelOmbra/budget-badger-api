@@ -1,0 +1,8 @@
+root=true
+
+[*.{cs,vb}]
+csharp_style_namespace_declarations=file_scoped
+dotnet_diagnostic.CS8019.severity = suggestion #Unnecessary using directive
+
+[src/Infrastructure/Migrations/**]
+generated_code=true

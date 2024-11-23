@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -20,12 +19,13 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    IsAnonym = table.Column<bool>(type: "boolean", nullable: false)
+                    IsAnonym = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Budgets",
@@ -33,7 +33,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false)
+                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -43,8 +43,10 @@ namespace Infrastructure.Migrations
                         column: x => x.OwnerId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Accounts",
@@ -54,7 +56,7 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Currency = table.Column<int>(type: "integer", nullable: false),
                     Balance = table.Column<decimal>(type: "numeric", nullable: false),
-                    BudgetId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BudgetId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -64,15 +66,17 @@ namespace Infrastructure.Migrations
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "BudgetUser",
                 columns: table => new
                 {
                     BudgetsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UsersId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -82,14 +86,17 @@ namespace Infrastructure.Migrations
                         column: x => x.BudgetsId,
                         principalTable: "Budgets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_BudgetUser_Users_UsersId",
                         column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Categories",
@@ -97,7 +104,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    BudgetId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BudgetId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -107,15 +114,17 @@ namespace Infrastructure.Migrations
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "AccountUser",
                 columns: table => new
                 {
                     AccountsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    OwnersId = table.Column<Guid>(type: "uuid", nullable: false)
+                    OwnersId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -125,27 +134,37 @@ namespace Infrastructure.Migrations
                         column: x => x.AccountsId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_AccountUser_Users_OwnersId",
                         column: x => x.OwnersId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
                     Value = table.Column<decimal>(type: "numeric", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                     BudgetId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uuid", nullable: false)
+                    AccountId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -155,14 +174,17 @@ namespace Infrastructure.Migrations
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_Transactions_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "DefaultShares",
@@ -171,7 +193,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Percentage = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -181,25 +203,32 @@ namespace Infrastructure.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_DefaultShares_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Cashflows",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<int>(type: "integer", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TransactionId = table.Column<int>(type: "integer", nullable: false)
+                    TransactionId = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -209,25 +238,32 @@ namespace Infrastructure.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_Cashflows_Transactions_TransactionId",
                         column: x => x.TransactionId,
                         principalTable: "Transactions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Shares",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     Percentage = table.Column<string>(type: "text", nullable: false),
                     Debt = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CashflowId = table.Column<int>(type: "integer", nullable: false)
+                    CashflowId = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -237,113 +273,119 @@ namespace Infrastructure.Migrations
                         column: x => x.CashflowId,
                         principalTable: "Cashflows",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_Shares_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_BudgetId",
                 table: "Accounts",
-                column: "BudgetId");
+                column: "BudgetId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccountUser_OwnersId",
                 table: "AccountUser",
-                column: "OwnersId");
+                column: "OwnersId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_OwnerId",
                 table: "Budgets",
-                column: "OwnerId");
+                column: "OwnerId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_BudgetUser_UsersId",
                 table: "BudgetUser",
-                column: "UsersId");
+                column: "UsersId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cashflows_CategoryId",
                 table: "Cashflows",
-                column: "CategoryId");
+                column: "CategoryId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cashflows_TransactionId",
                 table: "Cashflows",
-                column: "TransactionId");
+                column: "TransactionId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_BudgetId",
                 table: "Categories",
-                column: "BudgetId");
+                column: "BudgetId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_DefaultShares_CategoryId",
                 table: "DefaultShares",
-                column: "CategoryId");
+                column: "CategoryId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_DefaultShares_UserId",
                 table: "DefaultShares",
-                column: "UserId");
+                column: "UserId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shares_CashflowId",
                 table: "Shares",
-                column: "CashflowId");
+                column: "CashflowId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shares_UserId",
                 table: "Shares",
-                column: "UserId");
+                column: "UserId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_AccountId",
                 table: "Transactions",
-                column: "AccountId");
+                column: "AccountId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BudgetId",
                 table: "Transactions",
-                column: "BudgetId");
+                column: "BudgetId"
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AccountUser");
+            migrationBuilder.DropTable(name: "AccountUser");
 
-            migrationBuilder.DropTable(
-                name: "BudgetUser");
+            migrationBuilder.DropTable(name: "BudgetUser");
 
-            migrationBuilder.DropTable(
-                name: "DefaultShares");
+            migrationBuilder.DropTable(name: "DefaultShares");
 
-            migrationBuilder.DropTable(
-                name: "Shares");
+            migrationBuilder.DropTable(name: "Shares");
 
-            migrationBuilder.DropTable(
-                name: "Cashflows");
+            migrationBuilder.DropTable(name: "Cashflows");
 
-            migrationBuilder.DropTable(
-                name: "Categories");
+            migrationBuilder.DropTable(name: "Categories");
 
-            migrationBuilder.DropTable(
-                name: "Transactions");
+            migrationBuilder.DropTable(name: "Transactions");
 
-            migrationBuilder.DropTable(
-                name: "Accounts");
+            migrationBuilder.DropTable(name: "Accounts");
 
-            migrationBuilder.DropTable(
-                name: "Budgets");
+            migrationBuilder.DropTable(name: "Budgets");
 
-            migrationBuilder.DropTable(
-                name: "Users");
+            migrationBuilder.DropTable(name: "Users");
         }
     }
 }

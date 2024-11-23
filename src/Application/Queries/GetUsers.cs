@@ -11,7 +11,7 @@ public class GetUsersQueryHandler(IAppDbContext context)
 {
     public Task<List<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = context.Users.ToList();
+        List<User> users = [.. context.Users];
         return Task.FromResult(users);
     }
 }
