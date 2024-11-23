@@ -1,6 +1,6 @@
 services:
   database:
-    image: 'postgres:latest'
+    image: "postgres:latest"
     ports:
       - 5000:5432
     environment:
@@ -9,18 +9,29 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data/
     networks:
-      - bb-network
+      bb-network:
+        ipv4_address: 10.5.0.2
   beaver:
-    image: 'dbeaver/cloudbeaver:latest'
+    image: "dbeaver/cloudbeaver:latest"
     ports:
       - 2137:8978
+    environment:
+      CB_SERVER_URL: https://10.5.0.2:5432
+      CB_ADMIN_NAME: cbadmin
+      CB_ADMIN_PASSWORD: Password123
     volumes:
       - cloud-beaver:/opt/cloudbeaver/workspace/
     networks:
-      - bb-network
+      bb-network:
+        ipv4_address: 10.5.0.3
+
 volumes:
   postgres-data:
   cloud-beaver:
 networks:
   bb-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
