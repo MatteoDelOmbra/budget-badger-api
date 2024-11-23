@@ -2,7 +2,7 @@ namespace Domain.Enitities;
 
 public class DefaultShare
 {
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     public required int Percentage { get; set; }
 
     //relationships

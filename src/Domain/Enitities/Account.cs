@@ -4,7 +4,7 @@ namespace Domain.Enitities;
 
 public class Account
 {
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     public required Currency Currency { get; set; }
     public decimal Balance { get; set; }

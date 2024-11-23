@@ -12,26 +12,26 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240501094855_ERDBasedCreation")]
-    partial class ERDBasedCreation
+    [Migration("20241123091935_UpdateIds")]
+    partial class UpdateIds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("AccountUser", b =>
                 {
-                    b.Property<string>("AccountsId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("AccountsId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("OwnersId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("OwnersId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("AccountsId", "OwnersId");
 
@@ -42,11 +42,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("BudgetUser", b =>
                 {
-                    b.Property<string>("BudgetsId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("BudgetsId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("UsersId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("BudgetsId", "UsersId");
 
@@ -57,14 +57,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Account", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("BudgetId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("BudgetId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Currency")
                         .HasColumnType("integer");
@@ -82,16 +83,16 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Budget", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -102,18 +103,21 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Cashflow", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TransactionId")
-                        .HasColumnType("text");
+                    b.Property<int>("TransactionId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Value")
                         .HasColumnType("integer");
@@ -129,12 +133,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("BudgetId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("BudgetId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -149,18 +153,18 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.DefaultShare", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Percentage")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -173,12 +177,14 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Share", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CashflowId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CashflowId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Debt")
                         .HasColumnType("integer");
@@ -187,8 +193,8 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -201,16 +207,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.Transaction", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BudgetId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BudgetId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
@@ -236,8 +243,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Enitities.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -293,7 +301,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Enitities.Budget", "Budget")
                         .WithMany("Accounts")
-                        .HasForeignKey("BudgetId");
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Budget");
                 });
@@ -313,11 +323,15 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Enitities.Category", "Category")
                         .WithMany("Cashflows")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Enitities.Transaction", "Transaction")
                         .WithMany("Cashflows")
-                        .HasForeignKey("TransactionId");
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -345,7 +359,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Enitities.User", "User")
                         .WithMany("DefaultShares")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -362,7 +378,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Enitities.User", "User")
                         .WithMany("Shares")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cashflow");
 

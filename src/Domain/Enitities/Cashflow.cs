@@ -4,7 +4,7 @@ namespace Domain.Enitities;
 
 public class Cashflow
 {
-    public required string Id { get; set; }
+    public int Id { get; set; }
     public required string Name { get; set; }
     public required int Value { get; set; }
 

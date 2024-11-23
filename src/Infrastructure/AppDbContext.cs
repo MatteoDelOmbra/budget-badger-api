@@ -8,14 +8,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     : DbContext(options),
         IAppDbContext
 {
-    public DbSet<Account> Accounts { get; set; }
-    public DbSet<Budget> Budgets { get; set; }
-    public DbSet<Cashflow> Cashflows { get; set; }
-    public DbSet<Category> Categories { get; set; }
-    public DbSet<DefaultShare> DefaultShares { get; set; }
-    public DbSet<Share> Shares { get; set; }
-    public DbSet<Transaction> Transactions { get; set; }
-    public DbSet<User> Users { get; set; }
+    public required DbSet<User> Users { get; set; }
+    public required DbSet<Account> Accounts { get; set; }
+    public required DbSet<Budget> Budgets { get; set; }
+    public required DbSet<Cashflow> Cashflows { get; set; }
+    public required DbSet<Category> Categories { get; set; }
+    public required DbSet<DefaultShare> DefaultShares { get; set; }
+    public required DbSet<Share> Shares { get; set; }
+    public required DbSet<Transaction> Transactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -4,7 +4,7 @@ namespace Domain.Enitities;
 
 public class Budget
 {
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
 
     //relationships

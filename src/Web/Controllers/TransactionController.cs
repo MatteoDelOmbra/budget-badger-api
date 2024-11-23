@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers;
 
 [Route("[controller]")]
-public class TransactionsController : ControllerBase
+public class TransactionController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public TransactionsController(IMediator mediator)
+    public TransactionController(IMediator mediator)
     {
         _mediator = mediator;
     }
