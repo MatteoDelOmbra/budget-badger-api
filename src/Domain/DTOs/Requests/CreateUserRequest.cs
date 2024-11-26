@@ -1,6 +1,6 @@
-namespace Domain.DTOs;
+namespace Domain.DTOs.Requests;
 
-public class CreateUserBody
+public class CreateUserRequest
 {
     public required string Name { get; set; }
     public required string HashedPassword { get; set; }

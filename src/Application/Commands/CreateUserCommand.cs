@@ -1,24 +1,32 @@
 using Application.Interfaces;
 using Application.Validators;
-using Domain.DTOs;
+using Domain.DTOs.Requests;
+using Domain.DTOs.Responses;
 using Domain.Enitities;
 using FluentValidation.Results;
 using MediatR;
 
 namespace Application.Commands;
 
-public record CreateUserCommand(CreateUserBody Body) : IRequest<Guid>;
+public record CreateUserCommand(CreateUserRequest Body) : IRequest<Response<CreateUserResponse>>;
 
 public class CreateUserCommandHandler(IAppDbContext context)
-    : IRequestHandler<CreateUserCommand, Guid>
+    : IRequestHandler<CreateUserCommand, Response<CreateUserResponse>>
 {
-    public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Response<CreateUserResponse>> Handle(
+        CreateUserCommand request,
+        CancellationToken cancellationToken
+    )
     {
         CreateUserValidator validator = new();
         ValidationResult validation = validator.Validate(request.Body);
         if (!validation.IsValid)
         {
-            return Guid.Empty;
+            return new()
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Data = new() { Message = "Validation failed" },
+            };
         }
         User user =
             new()
@@ -30,8 +38,23 @@ public class CreateUserCommandHandler(IAppDbContext context)
                 IsAnonym = false,
             };
         _ = context.Users.Add(user);
-        _ = await context.SaveChangesAsync(cancellationToken);
+        try
+        {
+            _ = await context.SaveChangesAsync(cancellationToken);
+        }
+        catch
+        {
+            return new()
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Data = new() { Message = "Failed to save in database" },
+            };
+        }
 
-        return user.Id;
+        return new()
+        {
+            StatusCode = System.Net.HttpStatusCode.OK,
+            Data = new() { Message = "User created successfully", UserId = user.Id },
+        };
     }
 }

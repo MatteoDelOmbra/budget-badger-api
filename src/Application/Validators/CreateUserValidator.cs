@@ -1,9 +1,9 @@
-using Domain.DTOs;
+using Domain.DTOs.Requests;
 using FluentValidation;
 
 namespace Application.Validators;
 
-public class CreateUserValidator : AbstractValidator<CreateUserBody>
+public class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {
     public CreateUserValidator()
     {

@@ -1,6 +1,7 @@
 using Application.Commands;
 using Application.Queries;
-using Domain.DTOs;
+using Domain.DTOs.Requests;
+using Domain.DTOs.Responses;
 using Domain.Enitities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,13 @@ public class UserController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserBody body)
+    public async Task<ActionResult<Response<CreateUserResponse>>> CreateUser(
+        [FromBody] CreateUserRequest body
+    )
     {
         CreateUserCommand command = new(body);
-        Guid result = await _mediator.Send(command);
-        if (result == Guid.Empty)
-            return BadRequest("Validation failed");
-        return Ok(result);
+        Response<CreateUserResponse> result = await _mediator.Send(command);
+        return StatusCode((int)result.StatusCode, result.Data);
     }
 
     [HttpGet]
