@@ -1,5 +1,8 @@
-﻿namespace Domain.Enitities;
+﻿using Microsoft.EntityFrameworkCore;
 
+namespace Domain.Enitities;
+
+[Index(nameof(Email), IsUnique = true)]
 public class User
 {
     public required Guid Id { get; set; }
