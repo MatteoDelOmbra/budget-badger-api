@@ -3,6 +3,7 @@ root=true
 [*.{cs,vb}]
 csharp_style_namespace_declarations=file_scoped
 dotnet_diagnostic.CS8019.severity = suggestion #Unnecessary using directive
+dotnet_diagnostic.IDE0058.severity = none #Expression value is never used
 
 [src/Infrastructure/Migrations/**]
 generated_code=true

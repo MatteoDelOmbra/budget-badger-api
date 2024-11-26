@@ -19,6 +19,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _ = modelBuilder.Entity<Budget>().HasOne(b => b.Owner).WithMany(u => u.OwnedBudgets);
+        modelBuilder.Entity<Budget>().HasOne(b => b.Owner).WithMany(u => u.OwnedBudgets);
     }
 }
