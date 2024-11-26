@@ -13,10 +13,13 @@ public class UserController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator;
 
     [HttpPost]
-    public async Task<IActionResult> Signup([FromBody] SignupBody body)
+    [Route("create")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserBody body)
     {
-        SignupCommand command = new(body);
+        CreateUserCommand command = new(body);
         Guid result = await _mediator.Send(command);
+        if (result == Guid.Empty)
+            return BadRequest("Validation failed");
         return Ok(result);
     }
 

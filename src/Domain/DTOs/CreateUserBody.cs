@@ -1,6 +1,6 @@
 namespace Domain.DTOs;
 
-public class SignupBody
+public class CreateUserBody
 {
     public required string Name { get; set; }
     public required string HashedPassword { get; set; }

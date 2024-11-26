@@ -1,16 +1,25 @@
 using Application.Interfaces;
+using Application.Validators;
 using Domain.DTOs;
 using Domain.Enitities;
+using FluentValidation.Results;
 using MediatR;
 
 namespace Application.Commands;
 
-public record SignupCommand(SignupBody Body) : IRequest<Guid>;
+public record CreateUserCommand(CreateUserBody Body) : IRequest<Guid>;
 
-public class SignupCommandHandler(IAppDbContext context) : IRequestHandler<SignupCommand, Guid>
+public class CreateUserCommandHandler(IAppDbContext context)
+    : IRequestHandler<CreateUserCommand, Guid>
 {
-    public async Task<Guid> Handle(SignupCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        CreateUserValidator validator = new();
+        ValidationResult validation = validator.Validate(request.Body);
+        if (!validation.IsValid)
+        {
+            return Guid.Empty;
+        }
         User user =
             new()
             {
