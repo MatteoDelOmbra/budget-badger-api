@@ -1,6 +1,7 @@
 using Application.Commands;
 using Application.Interfaces;
 using Moq;
+using Xunit;
 
 namespace UnitTests;
 
