@@ -5,10 +5,10 @@ using Xunit;
 
 namespace UnitTests;
 
-public class UnitTest1
+public class CreateUserTests
 {
     [Fact]
-    public async void CreateUserTest()
+    public async void UserIsCreatedCorrectly()
     {
         var ctx = new Mock<IAppDbContext>();
         var commandHandler = new CreateUserCommandHandler(ctx.Object);
