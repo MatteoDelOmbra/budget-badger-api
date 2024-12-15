@@ -9,8 +9,18 @@
 		"version": "2.0.0",
 		"tasks": [
 			{
-				"label": "Cover tests",
-				"dependsOn": [],
+				"label": "Analyze code",
+				"command": "roslynator",
+				"type": "process",
+				"args": [
+					"analyze",
+					"--severity-level",
+					"hidden"
+				],
+				"problemMatcher": "$msCompile"
+			},
+			{
+				"label": "Testing with coverage",
 				"command": "dotnet",
 				"type": "process",
 				"args": [
@@ -34,7 +44,46 @@
 					"-targetdir:${workspaceFolder}/tests/covstats"
 				],
 				"problemMatcher": []
-			}
+			},
+			{
+				"label": "Add migration",
+				"type": "process",
+				"command": "dotnet",
+				"args": [
+					"ef",
+					"migrations",
+					"add",
+					"${input:migration}",
+					"--project",
+					"./src/Infrastructure/Infrastructure.csproj",
+					"--startup-project",
+					"./src/Web/Web.csproj",
+				],
+				"problemMatcher": []
+			},
+			{
+				"label": "Update database",
+				"type": "process",
+				"command": "dotnet",
+				"args": [
+					"ef",
+					"database",
+					"update",
+					"--project",
+					"./src/Infrastructure/Infrastructure.csproj",
+					"--startup-project",
+					"./src/Web/Web.csproj",
+				],
+				"problemMatcher": []
+			},
+		],
+		"inputs": [
+			{
+				"id": "migration",
+				"description": "migration: Name of database migration",
+				"default": "Migration",
+				"type": "promptString"
+			},
 		]
-	}
+	},
 }
