@@ -37,10 +37,10 @@ public class CreateUserCommandHandler(IAppDbContext context)
                 Password = request.Body.HashedPassword,
                 IsAnonym = false,
             };
-        context.Users.Add(user);
+        _ = context.Users.Add(user);
         try
         {
-            await context.SaveChangesAsync(cancellationToken);
+            _ = await context.SaveChangesAsync(cancellationToken);
         }
         catch
         {

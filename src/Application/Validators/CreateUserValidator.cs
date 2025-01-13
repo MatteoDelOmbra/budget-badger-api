@@ -7,6 +7,6 @@ public class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {
     public CreateUserValidator()
     {
-        RuleFor(body => body.Email).EmailAddress();
+        _ = RuleFor(body => body.Email).EmailAddress();
     }
 }

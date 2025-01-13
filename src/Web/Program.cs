@@ -11,3 +11,4 @@ WebApplication app = builder.Build();
 app.UseSwagger().UseSwaggerUI();
 app.MapControllers();
 app.Run();
+public partial class Program { }

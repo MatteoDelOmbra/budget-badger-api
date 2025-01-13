@@ -15,7 +15,7 @@
 				"args": [
 					"analyze",
 					"--severity-level",
-					"hidden"
+					"info"
 				],
 				"problemMatcher": "$msCompile"
 			},
